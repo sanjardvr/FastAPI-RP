@@ -19,10 +19,10 @@ class Settings(BaseSettings):
     API_PREFIX: str = Field(default="api", env="API_PREFIX")
     DEBUG: bool = Field(default=True, env="DEBUG")
 
-    JWT_SECRET: str = Field(default="", env="JWT_SECRET")
-    JWT_ALGORITHM: str = Field(default="", env="JWT_ALGORITHM")
-    JWT_REFRESH_SECRET: str = Field(default="", env="JWT_REFRESH_SECRET")
-    SALT: str = Field(default="", env="SALT")
+    # JWT_SECRET: str = Field(default="", env="JWT_SECRET")
+    # JWT_ALGORITHM: str = Field(default="", env="JWT_ALGORITHM")
+    # JWT_REFRESH_SECRET: str = Field(default="", env="JWT_REFRESH_SECRET")
+    # SALT: str = Field(default="", env="SALT")
 
     POSTGRES_USER: str = Field(default="", env="POSTGRES_USER")
     POSTGRES_PASSWORD: str = Field(default="", env="POSTGRES_PASSWORD")
@@ -31,19 +31,19 @@ class Settings(BaseSettings):
     POSTGRES_DB: str = Field(default="", env="POSTGRES_DB")
     POSTGRES_URL: Optional[str] = None
 
-    MAIL_USERNAME: str = Field(default="", env="MAIL_USERNAME")
-    MAIL_PASSWORD: str = Field(default="", env="MAIL_PASSWORD")
-    MAIL_FROM: str = Field(default="", env="MAIL_FROM")
-    MAIL_PORT: str = Field(default="", env="MAIL_PORT")
-    MAIL_SERVER: str = Field(default="", env="MAIL_SERVER")
-    MAIL_FROM_NAME: str = Field(default="", env="MAIL_FROM_NAME")
+    # MAIL_USERNAME: str = Field(default="", env="MAIL_USERNAME")
+    # MAIL_PASSWORD: str = Field(default="", env="MAIL_PASSWORD")
+    # MAIL_FROM: str = Field(default="", env="MAIL_FROM")
+    # MAIL_PORT: str = Field(default="", env="MAIL_PORT")
+    # MAIL_SERVER: str = Field(default="", env="MAIL_SERVER")
+    # MAIL_FROM_NAME: str = Field(default="", env="MAIL_FROM_NAME")
 
-    AWS_ACCESS_KEY_ID: str = Field(default="", env="AWS_ACCESS_KEY_ID")
-    AWS_SECRET_ACCESS_KEY: str = Field(default="", env="AWS_SECRET_ACCESS_KEY")
-    AWS_DEFAULT_REGION: str = Field(default="", env="AWS_DEFAULT_REGION")
+    # AWS_ACCESS_KEY_ID: str = Field(default="", env="AWS_ACCESS_KEY_ID")
+    # AWS_SECRET_ACCESS_KEY: str = Field(default="", env="AWS_SECRET_ACCESS_KEY")
+    # AWS_DEFAULT_REGION: str = Field(default="", env="AWS_DEFAULT_REGION")
 
-    MACHINE_USERNAME: str = Field(default="", env="MACHINE_USERNAME")
-    MACHINE_PASSWORD: str = Field(default="", env="MACHINE_PASSWORD")
+    # MACHINE_USERNAME: str = Field(default="", env="MACHINE_USERNAME")
+    # MACHINE_PASSWORD: str = Field(default="", env="MACHINE_PASSWORD")
 
     REDIS_MASTER_SERVICE_HOST: str = Field(default="", env="REDIS_MASTER_SERVICE_HOST")
     REDIS_PORT: str = Field(default="", env="REDIS_PORT")
