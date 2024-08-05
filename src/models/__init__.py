@@ -1,3 +1,3 @@
-from .integrator import Integrator
+from .book import Book
 
-__all__ = ["Integrator"]
+__all__ = ["Book"]

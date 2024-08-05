@@ -4,10 +4,10 @@ from pydantic import ConfigDict
 from sqlmodel import Field, Relationship, SQLModel
 from typing import TYPE_CHECKING, Optional
 
-class IntegratorBase(SQLModel):
+class BookBase(SQLModel):
     name: str = Field(...)
 
-class Integrator(IntegratorBase , table=True):
+class Book(BookBase , table=True):
     id: Optional[int] = Field(
         default=None,
         primary_key=True,

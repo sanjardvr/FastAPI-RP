@@ -1,7 +1,7 @@
 from fastapi import APIRouter, status
 from fastapi.responses import PlainTextResponse, Response
 
-from src.api.v1 import integrator
+from src.api.v1 import book
 
 
 home_router = APIRouter()
@@ -13,4 +13,4 @@ async def home() -> Response:
 
 
 api_router = APIRouter()
-api_router.include_router(integrator.router, tags=["Integrator"], prefix="/integrator")
+api_router.include_router(book.router, tags=["Book"], prefix="/book")
