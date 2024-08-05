@@ -1,0 +1,21 @@
+{{- range .Values.services }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ .name }}"
+  labels:
+    {{- include "avialine-passenger.labels" $ | nindent 4 }}
+    k8s-app: {{ .name }}
+spec:
+  ports:
+  - name: http
+    port: {{ .port }}
+    targetPort: {{ .port }}
+    protocol: TCP
+  selector:
+    {{- include "avialine-passenger.selectorLabels" $ | nindent 4 }}
+    k8s-app: {{ .name }}
+---
+{{- end }}
+

@@ -1,0 +1,76 @@
+{{- range .Values.services }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    {{- include "avialine-passenger.labels" $ | nindent 4 }}
+    k8s-app: {{ .name }}
+  name: {{ .name }}
+spec:
+  replicas: {{ $.Values.replicas }}
+  revisionHistoryLimit: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      {{- include "avialine-passenger.selectorLabels" $ | nindent 6 }}
+      k8s-app: {{ .name }}
+  template:
+    metadata:
+      labels:
+        {{- include "avialine-passenger.labels" $ | nindent 8 }}
+        k8s-app: {{ .name }}
+    spec:
+      {{- with $.Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with $.Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #         - matchExpressions:
+      #             - key: doks.digitalocean.com/node-pool
+      #               operator: In
+      #               values:
+      #                 - {{ $.Values.affinity }}
+      # tolerations:
+      #   - key: doks.digitalocean.com/node-pool
+      #     value: {{ $.Values.tolerations }}
+      #     operator: Equal
+      containers: 
+        - name: {{ .name }}
+          image: "{{ $.Values.image.repository }}:{{ $.Values.image.tag | default $.Chart.AppVersion }}"
+          {{- with $.Values.env }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with $.Values.envFrom }}
+          envFrom:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          imagePullPolicy: {{ $.Values.image.pullPolicy }}
+          {{- with $.Values.command }}
+          command: {{- toYaml . | nindent 12 }}
+          {{- end }}
+          args:  {{ .arg_command | quote }}
+          ports:
+            - containerPort: {{ .port }}
+              protocol: TCP
+          {{- if .probe -}}
+          {{- toYaml .probe | nindent 10 }}
+          {{- end -}}
+          {{- with .resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+{{- end }}
+

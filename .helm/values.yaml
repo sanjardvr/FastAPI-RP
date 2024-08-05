@@ -1,0 +1,36 @@
+applicationName: avialine-passenger
+replicas: 1
+
+
+env:
+  - name: env
+    value: "staging"
+envFrom:
+  - secretRef:
+      name: avialine-passenger
+
+ingress:
+  host: staging.passenger.api.asialine.ru
+
+services:
+  - name: avialine-passenger
+    port: 8888
+
+command:  ["/bin/bash", "-c", "gunicorn src.main:app --workers 1 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8888 --log-level=debug --timeout=60"]
+
+job:
+  name: avialine-passenger-db-migrate-job
+  command: ["/bin/bash", "-c", "alembic upgrade head"]
+
+
+
+# affinity: staging-nodes
+# tolerations: staging-nodes
+
+image:
+  repository: registry.gitlab.com/devsymfony/asialine-passenger
+  tag: latest
+  pullPolicy: IfNotPresent
+
+imagePullSecrets:
+  - name: docker-asialine-front-registry
