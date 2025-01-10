@@ -48,4 +48,5 @@ app.add_middleware(
 app.add_event_handler("startup", on_startup)
 
 app.include_router(routes.home_router)
+
 app.include_router(routes.api_router, prefix=f"/{settings.API_PREFIX}")
